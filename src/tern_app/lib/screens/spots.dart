@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tern_app/models/bird_library.dart';
+import 'package:tern_app/services/bird_service.dart';
 import '../data/shared_prefs.dart';
 import './spot_detail.dart';
 import '../data/moor_db.dart';
@@ -11,12 +13,15 @@ class SpotsScreen extends StatefulWidget {
 }
 
 class _SpotsScreenState extends State<SpotsScreen> {
+  BirdService _birdService = BirdService();
+  List<Bird> birds;
   int settingColor = 0xff1976d2;
   double fontSize = 16;
   SPSettings settings;
   List<Spot> spots;
   @override
   void initState() {
+    getBirds();
     settings = SPSettings();
     settings.init().then((value) {
       setState(() {
@@ -67,7 +72,9 @@ class _SpotsScreenState extends State<SpotsScreen> {
                   spotDb.deleteSpot(spots[index]);
                 },
                 child: ListTile(
-                  title: Text('linnun nimi'),
+                  title: Text(birds
+                      .firstWhere((bird) => bird.id == spots[index].birdId)
+                      .nameFin),
                   subtitle: Text(spotDate),
                   onTap: () {
                     Navigator.push(
@@ -83,5 +90,12 @@ class _SpotsScreenState extends State<SpotsScreen> {
         },
       ),
     );
+  }
+
+  Future getBirds() async {
+    if (!_birdService.isInitialized) await _birdService.initializeService();
+    setState(() {
+      birds = _birdService.birds(true);
+    });
   }
 }

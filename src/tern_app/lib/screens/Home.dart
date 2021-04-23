@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tern_app/models/bird_library.dart';
 import 'package:tern_app/screens/spots.dart';
+import 'package:tern_app/services/bird_service.dart';
 import '../data/shared_prefs.dart';
 import '../screens/settings.dart';
 import 'TernImage.dart';
@@ -10,11 +12,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  BirdService _birdService = BirdService();
+  List<Bird> birds;
   int settingColor = 0xff1976d2;
   double fontSize = 16;
   SPSettings settings;
   @override
   void initState() {
+    getBirds();
     settings = SPSettings();
     getSettings();
     super.initState();
@@ -94,6 +99,13 @@ class _HomeScreenState extends State<HomeScreen> {
         settingColor = settings.getColor();
         fontSize = settings.getFontSize();
       });
+    });
+  }
+
+  Future getBirds() async {
+    if (!_birdService.isInitialized) await _birdService.initializeService();
+    setState(() {
+      birds = _birdService.birds(true);
     });
   }
 }
