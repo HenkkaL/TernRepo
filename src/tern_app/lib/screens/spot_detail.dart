@@ -58,44 +58,47 @@ class _SpotDetailScreenState extends State<SpotDetailScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(bird.nameFin, textAlign: TextAlign.center),
-                ),
-                Expanded(
-                  child: Ink(
-                    decoration: const ShapeDecoration(
-                      color: Colors.lightBlueAccent,
-                      shape: CircleBorder(),
+            Padding(
+                padding: EdgeInsets.only(top: 3.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(bird.nameFin, textAlign: TextAlign.center),
                     ),
-                    child: IconButton(
-                      icon: const Icon(Icons.search_rounded),
-                      tooltip: 'Valitse lintu',
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Valitse lintu',
-                                      style: TextStyle(color: Colors.white),
+                    Expanded(
+                      child: Ink(
+                        decoration: const ShapeDecoration(
+                          color: Colors.lightBlueAccent,
+                          shape: CircleBorder(),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.search_rounded),
+                          tooltip: 'Valitse lintu',
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Valitse lintu',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      color: Colors.blueAccent,
                                     ),
-                                  ),
-                                  color: Colors.blueAccent,
-                                ),
-                                content: setupAlertDialoadContainer(context),
-                              );
-                            });
-                      },
+                                    content:
+                                        setupAlertDialoadContainer(context),
+                                  );
+                                });
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
+                  ],
+                )),
             SpotText('Pvm', txtDate, fontSize, 1),
             SpotText('Muistiinpano', txtDescription, fontSize, 5),
           ],
@@ -131,7 +134,6 @@ class _SpotDetailScreenState extends State<SpotDetailScreen> {
           height: 300.0, // Change as per your requirement
           width: 300.0, // Change as per your requirement
           child: ListView.builder(
-            shrinkWrap: true,
             itemCount: birds.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
@@ -167,7 +169,7 @@ class _SpotDetailScreenState extends State<SpotDetailScreen> {
     if (!_birdService.isInitialized) await _birdService.initializeService();
     setState(() {
       birds = _birdService.birds(true);
-      if (widget.spot.birdId > 0)
+      if (widget.spot.id != null && widget.spot.birdId > 0)
         bird = birds.firstWhere((bird) => bird.id == widget.spot.birdId);
     });
   }

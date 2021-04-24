@@ -35,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       });
     });
     super.initState();
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = new List.empty();
+    List<DropdownMenuItem<String>> items = new List.empty(growable: true);
     for (FontSize fontSize in fontSizes) {
       items.add(DropdownMenuItem(
           value: fontSize.size.toString(),

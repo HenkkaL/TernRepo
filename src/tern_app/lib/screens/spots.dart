@@ -44,7 +44,7 @@ class _SpotsScreenState extends State<SpotsScreen> {
           child: Icon(Icons.add),
           backgroundColor: Color(settingColor),
           onPressed: () {
-            Spot spot = Spot(id: 0, date: null, description: '');
+            Spot spot = Spot(id: 0, birdId: 0, date: null, description: '');
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -60,6 +60,7 @@ class _SpotsScreenState extends State<SpotsScreen> {
           }
 
           return ListView.builder(
+            shrinkWrap: true,
             itemCount: spots.length,
             itemBuilder: (context, index) {
               DateFormat formatter = DateFormat('dd/MM/yyyy');
@@ -72,10 +73,17 @@ class _SpotsScreenState extends State<SpotsScreen> {
                   spotDb.deleteSpot(spots[index]);
                 },
                 child: ListTile(
-                  title: Text(birds
-                      .firstWhere((bird) => bird.id == spots[index].birdId)
-                      .nameFin),
-                  subtitle: Text(spotDate),
+                  title: Text(
+                      birds
+                          .firstWhere((bird) => bird.id == spots[index].birdId)
+                          .nameFin,
+                      style: TextStyle(
+                        fontSize: fontSize,
+                      )),
+                  subtitle: Text(spotDate,
+                      style: TextStyle(
+                        fontSize: fontSize * 0.6,
+                      )),
                   onTap: () {
                     Navigator.push(
                         context,
