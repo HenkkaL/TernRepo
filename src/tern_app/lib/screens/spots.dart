@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tern_app/models/bird_library.dart';
 import 'package:tern_app/services/bird_service.dart';
+import 'package:tern_app/widgets/shared/app_bottom_navigation_bar.dart';
 import '../data/shared_prefs.dart';
+import '../tern_util.dart';
 import './spot_detail.dart';
 import '../data/moor_db.dart';
 import 'package:intl/intl.dart';
@@ -96,6 +98,9 @@ class _SpotsScreenState extends State<SpotsScreen> {
             },
           );
         },
+      ),
+      bottomNavigationBar: AppBottomNavigationBar(
+        currentScreen: TernUtil.SPOTS,
       ),
     );
   }
