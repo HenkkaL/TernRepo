@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tern_app/models/bird_library.dart';
+import 'package:tern_app/screens/home_screen.dart';
 import 'package:tern_app/services/bird_service.dart';
-import './spots.dart';
 import '../data/shared_prefs.dart';
 import '../data/moor_db.dart';
 import 'package:intl/intl.dart';
@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 class SpotDetailScreen extends StatefulWidget {
   final Spot spot;
   final isNew;
+  final homeScreenTabIndex;
 
-  SpotDetailScreen(this.spot, this.isNew);
+  SpotDetailScreen(this.spot, this.isNew, this.homeScreenTabIndex);
 
   @override
   _SpotDetailScreenState createState() => _SpotDetailScreenState();
@@ -119,8 +120,12 @@ class _SpotDetailScreenState extends State<SpotDetailScreen> {
             } else {
               ternDb.updateSpot(updated);
             }
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => SpotsScreen()));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(
+                          initIndex: widget.homeScreenTabIndex,
+                        )));
           }),
     );
   }
