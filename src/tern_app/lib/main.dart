@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tern_app/screens/Home.dart';
+import 'package:tern_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'data/moor_db.dart';

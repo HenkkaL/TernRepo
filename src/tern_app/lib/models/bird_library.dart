@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class BirdLibrary {
   final List<Bird> birds;
 
@@ -8,9 +6,7 @@ class BirdLibrary {
   factory BirdLibrary.fromJson(Map<String, dynamic> jsonData) {
     var dynamicList = jsonData['Birds'] as List;
     List<Bird> birdList = dynamicList.map((i) => Bird.fromJson(i)).toList();
-    return BirdLibrary(
-      birds: birdList
-    );
+    return BirdLibrary(birds: birdList);
   }
 }
 
@@ -27,8 +23,8 @@ class Bird {
   final String nameEng;
   final String isCommon;
 
-  Bird({
-      this.id,
+  Bird(
+      {this.id,
       this.code,
       this.orderLatin,
       this.orderFin,
@@ -38,22 +34,20 @@ class Bird {
       this.nameFin,
       this.nameSve,
       this.nameEng,
-      this.isCommon
-  }
-      );
+      this.isCommon});
 
   factory Bird.fromJson(Map<String, dynamic> jsonObject) {
     return Bird(
-      id: int.parse(jsonObject["Id"]),
-      code: jsonObject["Code"],
-      orderLatin: jsonObject["OrderLatin"],
-      orderFin: jsonObject["OrderFin"],
-      tribeLatin: jsonObject["TribeLatin"],
-      tribeFin: jsonObject["TribeFin"],
-      nameLatin: jsonObject["NameLatin"],
-      nameFin: jsonObject["NameFin"],
-      nameSve: jsonObject["NameSve"],
-      nameEng: jsonObject["NameEng"],
-      isCommon: jsonObject["IsCommon"]);
+        id: int.parse(jsonObject["Id"]),
+        code: jsonObject["Code"],
+        orderLatin: jsonObject["OrderLatin"],
+        orderFin: jsonObject["OrderFin"],
+        tribeLatin: jsonObject["TribeLatin"],
+        tribeFin: jsonObject["TribeFin"],
+        nameLatin: jsonObject["NameLatin"],
+        nameFin: jsonObject["NameFin"],
+        nameSve: jsonObject["NameSve"],
+        nameEng: jsonObject["NameEng"],
+        isCommon: jsonObject["IsCommon"]);
   }
 }
