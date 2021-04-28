@@ -31,7 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    if (widget.initIndex > 0) _currentIndex = widget.initIndex;
+    if (widget.initIndex == null)
+      _currentIndex = 0;
+    else
+      _currentIndex = widget.initIndex;
     getBirds();
     settings = SPSettings();
     settings.init().then((value) {
@@ -51,47 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               backgroundColor: Color(settingColor),
               title: Text('TiiraaTiiraa'),
-            ),
-            drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  DrawerHeader(
-                    child: Text('Valikko',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                        )),
-                    decoration: BoxDecoration(
-                      color: Color(settingColor),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Asetukset',
-                      style: TextStyle(
-                        fontSize: fontSize,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsScreen()));
-                    },
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Havainnot',
-                      style: TextStyle(
-                        fontSize: fontSize,
-                      ),
-                    ),
-                    onTap: () {},
-                  ),
-                ],
-              ),
+              actions: <Widget>[
+                PopupMenuButton(
+                  itemBuilder: (BuildContext context) {
+                    return <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                          child: Text(TernUtil.SETTINGS),
+                          value: TernUtil.SETTINGS)
+                    ];
+                  },
+                  onSelected: (value) => changeScreen(context, value),
+                )
+              ],
             ),
             body: tabs[_currentIndex],
             floatingActionButton: FloatingActionButton(
@@ -139,5 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       birds = _birdService.birds(true);
     });
+  }
+
+  changeScreen(BuildContext context, value) {
+    if (value == TernUtil.SETTINGS) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+    }
   }
 }

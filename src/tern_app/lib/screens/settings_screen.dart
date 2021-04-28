@@ -35,15 +35,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
       });
     });
     super.initState();
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Asetukset'),
-        backgroundColor: Color(settingColor),
-      ),
+          title: Text('Asetukset'), backgroundColor: Color(settingColor)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
