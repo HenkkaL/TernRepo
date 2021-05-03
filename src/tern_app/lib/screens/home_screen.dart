@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
         fontSize = settings.getFontSize();
       });
     });
+    settings.settingsChanged.subscribe((args) => settingsChanged());
     super.initState();
   }
 
@@ -120,5 +121,12 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SettingsScreen()));
     }
+  }
+
+  void settingsChanged() {
+    setState(() {
+      settingColor = settings.getColor();
+        fontSize = settings.getFontSize();
+    });
   }
 }

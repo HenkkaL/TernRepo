@@ -11,6 +11,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int settingColor = 0xff1976D2;
   double fontSize = 16; //14 is the default
   SPSettings settings;
+
+
   final List<int> colors = [
     0xFF455A64,
     0xFFFFC107,
@@ -85,10 +87,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void changeSize(String newSize) {
     settings.setFontSize(double.tryParse(newSize));
-
     setState(() {
       //fontSizeString = newSize;
-
       fontSize = double.tryParse(newSize);
     });
   }
@@ -129,3 +129,4 @@ class ColorButton extends StatelessWidget {
     );
   }
 }
+

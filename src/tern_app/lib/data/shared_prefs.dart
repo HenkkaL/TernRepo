@@ -1,3 +1,4 @@
+import 'package:event/event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -5,6 +6,8 @@ class SPSettings {
   static SPSettings _instance;
   final String fontSizeKey = 'font_size';
   final String colorKey = 'color';
+
+  final settingsChanged = Event<SettingsChanged>();
   static SharedPreferences _sp;
 
   factory SPSettings() {
@@ -19,7 +22,9 @@ class SPSettings {
   }
 
   Future setColor(int color) {
-    return _sp.setInt(colorKey, color);
+    var success = _sp.setInt(colorKey, color);
+    settingsChanged.broadcast(SettingsChanged());
+    return success;
   }
 
   int getColor() {
@@ -32,7 +37,9 @@ class SPSettings {
   }
 
   Future setFontSize(double size) {
-    return _sp.setDouble(fontSizeKey, size);
+    var success = _sp.setDouble(fontSizeKey, size);
+    settingsChanged.broadcast(SettingsChanged());
+    return success;
   }
 
   double getFontSize() {
@@ -42,8 +49,6 @@ class SPSettings {
     }
     return fontSize;
   }
-
- 
-
-
 }
+
+class SettingsChanged extends EventArgs {}

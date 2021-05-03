@@ -157,15 +157,15 @@ class _SpotDetailScreenState extends State<SpotDetailScreen> {
             },
           ),
         ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Peruuta"),
-          ),
-        )
+        // Align(
+        //   alignment: Alignment.bottomRight,
+        //   child: FlatButton(
+        //     onPressed: () {
+        //       Navigator.pop(context);
+        //     },
+        //     child: Text("Peruuta"),
+        //   ),
+        // )
       ],
     );
   }

@@ -58,9 +58,13 @@ class _HomeTabState extends State<HomeTab> {
                       }
 
                       return Container(
-                        color: Colors.grey,
                         height: 300.0, // Change as per your requirement
                         width: 300.0, // Change as per your requirement
+                        decoration: BoxDecoration(
+                            color: Color(settingColor).withOpacity(0.5),
+                            shape: BoxShape.rectangle,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0))),
                         child: ListView.builder(
                           itemCount: spots.length,
                           itemBuilder: (context, index) {
@@ -68,33 +72,26 @@ class _HomeTabState extends State<HomeTab> {
                             String spotDate = (spots[index].date != null)
                                 ? formatter.format(spots[index].date)
                                 : '';
-                            return Dismissible(
-                              key: Key(spots[index].id.toString()),
-                              onDismissed: (direction) {
-                                spotDb.deleteSpot(spots[index]);
+                            return ListTile(
+                              title: Text(
+                                  birds
+                                      .firstWhere((bird) =>
+                                          bird.id == spots[index].birdId)
+                                      .nameFin,
+                                  style: TextStyle(
+                                    fontSize: fontSize,
+                                  )),
+                              subtitle: Text(spotDate,
+                                  style: TextStyle(
+                                    fontSize: fontSize * 0.6,
+                                  )),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SpotDetailScreen(
+                                            spots[index], false, 0)));
                               },
-                              child: ListTile(
-                                title: Text(
-                                    birds
-                                        .firstWhere((bird) =>
-                                            bird.id == spots[index].birdId)
-                                        .nameFin,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                    )),
-                                subtitle: Text(spotDate,
-                                    style: TextStyle(
-                                      fontSize: fontSize * 0.6,
-                                    )),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SpotDetailScreen(
-                                                  spots[index], false, 0)));
-                                },
-                              ),
                             );
                           },
                         ),
